@@ -12,10 +12,10 @@
 
 # Author: Teddysun <i@teddysun.com>
 
-if [ -f /usr/local/bin/ss-server ]; then
-    DAEMON=/usr/local/bin/ss-server
-elif [ -f /usr/bin/ss-server ]; then
-    DAEMON=/usr/bin/ss-server
+if [ -f /usr/local/bin/ss-manager ]; then
+    DAEMON=/usr/local/bin/ss-manager
+elif [ -f /usr/bin/ss-manager ]; then
+    DAEMON=/usr/bin/ss-manager
 fi
 NAME=Shadowsocks-libev
 CONF=/etc/shadowsocks-libev/config.json

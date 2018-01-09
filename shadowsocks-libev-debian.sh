@@ -16,7 +16,7 @@ libsodium_file="libsodium-1.0.16"
 libsodium_url="https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-1.0.16.tar.gz"
 
 mbedtls_file="mbedtls-2.6.0"
-mbedtls_url="http://dl.teddysun.com/files/mbedtls-2.6.0-gpl.tgz"
+mbedtls_url="https://tls.mbed.org/code/releases/mbedtls-2.6.0-gpl.tgz"
 
 # Stream Ciphers
 ciphers=(
@@ -39,6 +39,7 @@ chacha20
 salsa20
 rc4-md5
 )
+
 # Color
 red='\033[0;31m'
 green='\033[0;32m'
@@ -87,7 +88,7 @@ get_latest_version(){
     [ -z ${ver} ] && echo "Error: Get shadowsocks-libev latest version failed" && exit 1
     shadowsocks_libev_ver="shadowsocks-libev-$(echo ${ver} | sed -e 's/^[a-zA-Z]//g')"
     download_link="https://github.com/shadowsocks/shadowsocks-libev/releases/download/${ver}/${shadowsocks_libev_ver}.tar.gz"
-    init_script_link="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev-debian"
+    init_script_link="https://raw.githubusercontent.com/zzhou612/shadowsocks_install/master/shadowsocks-libev-debian"
 }
 
 get_opsy(){
@@ -359,11 +360,10 @@ config_shadowsocks(){
     fi
     cat > /etc/shadowsocks-libev/config.json<<-EOF
 {
-    "server":${server_value},
-    "server_port":${shadowsocksport},
-    "local_address":"127.0.0.1",
-    "local_port":1080,
-    "password":"${shadowsockspwd}",
+	"port_password":
+	{
+		"${shadowsocksport}": "${shadowsockspwd}",
+	},
     "timeout":600,
     "method":"${shadowsockscipher}"
 }
