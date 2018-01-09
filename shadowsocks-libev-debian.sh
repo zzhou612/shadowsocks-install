@@ -383,7 +383,7 @@ install_shadowsocks(){
     make && make install
     if [ $? -eq 0 ]; then
         chmod +x /etc/init.d/shadowsocks-libev
-        update-rc.d -f shadowsocks defaults
+        update-rc.d -f shadowsocks-libev defaults
         # Start shadowsocks
         /etc/init.d/shadowsocks-libev start
         if [ $? -eq 0 ]; then
