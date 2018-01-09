@@ -213,7 +213,7 @@ pre_install(){
         echo -e "[${green}Info${plain}] Upgrade shadowsocks libev to latest version..."
         ps -ef | grep -v grep | grep -i "ss-server" > /dev/null 2>&1
         if [ $? -eq 0 ]; then
-            /etc/init.d/shadowsocks stop
+            /etc/init.d/shadowsocks-libev stop
         fi
     elif [ ${status} -eq 2 ]; then
         print_info
@@ -382,10 +382,10 @@ install_shadowsocks(){
     ./configure --disable-documentation
     make && make install
     if [ $? -eq 0 ]; then
-        chmod +x /etc/init.d/shadowsocks
+        chmod +x /etc/init.d/shadowsocks-libev
         update-rc.d -f shadowsocks defaults
         # Start shadowsocks
-        /etc/init.d/shadowsocks start
+        /etc/init.d/shadowsocks-libev start
         if [ $? -eq 0 ]; then
             echo -e "[${green}Info${plain}] Shadowsocks-libev start success!"
         else
@@ -436,7 +436,7 @@ uninstall_shadowsocks_libev(){
     if [ "${answer}" == "y" ] || [ "${answer}" == "Y" ]; then
         ps -ef | grep -v grep | grep -i "ss-server" > /dev/null 2>&1
         if [ $? -eq 0 ]; then
-            /etc/init.d/shadowsocks stop
+            /etc/init.d/shadowsocks-libev stop
         fi
         update-rc.d -f shadowsocks remove
 
@@ -459,7 +459,7 @@ uninstall_shadowsocks_libev(){
         rm -f /usr/local/share/man/man1/ss-nat.1
         rm -f /usr/local/share/man/man8/shadowsocks-libev.8
         rm -fr /usr/local/share/doc/shadowsocks-libev
-        rm -f /etc/init.d/shadowsocks
+        rm -f /etc/init.d/shadowsocks-libev
         echo "Shadowsocks-libev uninstall success!"
     else
         echo
